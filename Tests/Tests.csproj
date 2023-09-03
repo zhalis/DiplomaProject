@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="DotNetSeleniumExtras.WaitHelpers" Version="3.11.0" />
+      <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0-preview-23371-04" />
+      <PackageReference Include="NUnit" Version="3.13.3" />
+      <PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
+      <PackageReference Include="Selenium.Support" Version="4.11.0" />
+      <PackageReference Include="Selenium.WebDriver" Version="4.11.0" />
+      <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="116.0.5845.9600" />
+      <PackageReference Include="Selenium.WebDriver.GeckoDriver.Win64" Version="0.33.0" />
+      <PackageReference Include="Selenium.WebDriver.MSEdgeDriver" Version="116.0.1938.36-pre" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\DiplomaProject\DiplomaProject.csproj" />
+    </ItemGroup>
+
+</Project>
