@@ -18,8 +18,7 @@ public class AddJobTitleTest : BaseTest
     {
         var adminHeaderPage = new SidePanelPage()
             .ClickAdminButton()
-            .ClickJobDropDownMenu()
-            .WaitDropDownMenuVisibility();
+            .ClickJobDropDownMenu();
         Assert.IsTrue(adminHeaderPage.IsDropDownMenuDisplayed(), "Job options isn't displayed");
         var jobTitlesPage = adminHeaderPage
             .ClickJobTitlesInDropDownMenu();
@@ -32,7 +31,7 @@ public class AddJobTitleTest : BaseTest
         Assert.AreEqual(JobTitle, addJobTitlePage.GetJobTitleInputValue(), "Entered job title is incorrect");
         addJobTitlePage
             .ClickSaveButton();
-        Assert.IsTrue(jobTitlesPage.GetJobTitlesText()
+        Assert.IsTrue(jobTitlesPage.GetJobTitles()
             .Any(title => title.Equals(JobTitle)), "The new title isn't saved");
     }
 

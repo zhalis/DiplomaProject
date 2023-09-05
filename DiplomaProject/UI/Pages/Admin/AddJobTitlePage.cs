@@ -5,29 +5,20 @@ namespace DiplomaProject.UI.Pages.Admin;
 
 public class AddJobTitlePage : BasePage
 {
-    private readonly Element _saveButton = Element.ByXPath(ButtonTypeSubmit);
+    private const string AddJobTitleHeader = "Add Job Title";
 
-    private readonly Element _addJobTitleHeader = Element.ByXPath(HeaderByTextPattern, "Add Job Title");
-
-    private readonly Element _jobTitleInput =
-        Element.ByXPath("//label[text()='Job Title']/parent::div[contains(@class,'label-wrapper')]" +
-                        "//following-sibling::div//input[contains(@class,'oxd-input')]");
+    private readonly Element _jobTitleInput = Element.ByXPath(InputByLabelNamePattern, "Job Title");
 
     public string GetJobTitleInputValue() => _jobTitleInput.GetAttributeValue(Attributes.ValueCssProperty);
 
-    public bool IsAddJobTitleHeaderDisplayed() => _addJobTitleHeader.IsDisplayed();
+    public bool IsAddJobTitleHeaderDisplayed() => IsHeaderDisplayed(AddJobTitleHeader);
 
     public AddJobTitlePage TypeJobTitle(string jobTitle)
     {
-        _jobTitleInput.Type(jobTitle);
+        _jobTitleInput.SendKeys(jobTitle);
 
         return this;
     }
 
-    public JobTitlesPage ClickSaveButton()
-    {
-        _saveButton.Click();
-
-        return new JobTitlesPage();
-    }
+    public void ClickSaveButton() => ButtonTypeSubmit.Click();
 }

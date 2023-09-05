@@ -5,11 +5,10 @@ namespace DiplomaProject.UI.Pages.Login;
 
 public class LoginPage : BasePage
 {
-    private readonly Element _loginForm = Element.ByXPath("//form[@class = 'oxd-form']");
-    private readonly Element _usernameInput = Element.ByXPath(InputByPlaceholderPattern, "Username");
-    private readonly Element _passwordInput = Element.ByXPath(InputByPlaceholderPattern, "Password");
-    private readonly Element _loginButton = Element.ByXPath(ButtonTypeSubmit);
-    private readonly Element _forgotLoginButton = Element.ByXPath("//p[text()='Forgot your password? ']");
+    private readonly Element _loginForm = Element.ByXPath("//*[@class = 'oxd-form']");
+    private readonly Element _usernameInput = Element.ByXPath(InputByLabelNamePattern, "Username");
+    private readonly Element _passwordInput = Element.ByXPath(InputByLabelNamePattern, "Password");
+    private readonly Element _forgotLoginButton = Element.ByXPath("//*[text()='Forgot your password? ']");
 
     public bool IsLoginFormDisplayed() => _loginForm.IsDisplayed();
 
@@ -22,14 +21,14 @@ public class LoginPage : BasePage
 
     public LoginPage TypeUsername(string username)
     {
-        _usernameInput.Type(username);
+        _usernameInput.SendKeys(username);
 
         return this;
     }
 
     public LoginPage TypePassword(string password)
     {
-        _passwordInput.Type(password);
+        _passwordInput.SendKeys(password);
 
         return this;
     }
@@ -40,7 +39,7 @@ public class LoginPage : BasePage
 
     public SidePanelPage ClickLoginButton()
     {
-        _loginButton.Click();
+        ButtonTypeSubmit.Click();
 
         return new SidePanelPage();
     }

@@ -4,22 +4,21 @@ namespace DiplomaProject.UI.Pages.Admin;
 
 public class NationalitiesPage : BasePage
 {
-    private const string EditButtonByNationalityNamePattern =
-        "//div[text()='{0}']//ancestor::div[contains(@class,'oxd-table-row')]//i[contains(@class,'bi-pencil-fill')]";
+    private const string NationalitiesTitleHeader = "Nationalities";
 
-    private readonly Element _nationalitiesTitleHeader = Element.ByXPath(HeaderByTextPattern, "Nationalities");
-    private readonly Element _nationalityNameFromTable = Element.ByXPath("//div[contains(@class,'oxd-table-cell')][2]");
+    private const string NationalityColumnName = "Nationality";
 
-    public bool IsNationalitiesTableTitleDisplayed() => _nationalitiesTitleHeader.IsDisplayed();
+    private readonly Table _nationalities = new();
+
+    public bool IsNationalitiesTableTitleDisplayed() => IsHeaderDisplayed(NationalitiesTitleHeader);
 
     public EditNationalityPage ClickEditButtonByNationalityName(string nationalityName)
     {
-        Element.ByXPath(EditButtonByNationalityNamePattern, nationalityName).Click();
+        _nationalities.ClickEditButtonByColumnValue(nationalityName);
 
         return new EditNationalityPage();
     }
 
-    public IEnumerable<string> GetNationalitiesNames() =>
-        _nationalityNameFromTable.WaitForPresenceOfAllElements()
-            .Select(nationality => nationality.Text);
+    public List<string> GetNationalitiesNames() =>
+        _nationalities.GetElementsByColumn(NationalityColumnName);
 }

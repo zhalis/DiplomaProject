@@ -1,59 +1,43 @@
 using DiplomaProject.UI.Framework.Element;
+using DiplomaProject.UI.Framework.Element.DropDowns;
 
 namespace DiplomaProject.UI.Pages.PIM;
 
 public class AddCustomFieldPage : BasePage
 {
-    private const string DropDownArrowPattern =
-        "//label[text()='{0}']//ancestor::div[contains(@class,'oxd-input-group')]" +
-        "//i[contains(@class,'bi-caret-down-fill')]";
+    private const string AddCustomFieldTitle = "Add Custom Field";
 
-    private readonly Element _addCustomFieldTitle = Element.ByXPath(HeaderByTextPattern, "Add Custom Field");
-    
-    private readonly Element _fieldNameInput =
-        Element.ByXPath("//label[text()='Field Name']//ancestor::div[contains(@class,'oxd-input-group')]" +
-                        "//input[contains(@class,'oxd-input')]");
-    
-    private readonly Element _screenDropDownArrow = Element.ByXPath(DropDownArrowPattern, "Screen");
-    
-    private readonly Element _typeDropDownArrow = Element.ByXPath(DropDownArrowPattern, "Type");
-    
-    private readonly Element _saveButton = Element.ByXPath(ButtonTypeSubmit);
+    private readonly Element _fieldNameInput = Element.ByXPath(InputByLabelNamePattern, "Field Name");
 
-    public bool IsAddCustomFieldTitleDisplayed() => _addCustomFieldTitle.IsDisplayed();
+    private readonly DropDown _screenDropDown = SelectDropDown.ByLabel("Screen");
+
+    private readonly DropDown _typeDropDown = SelectDropDown.ByLabel("Type");
+
+    public bool IsAddCustomFieldTitleDisplayed() => IsHeaderDisplayed(AddCustomFieldTitle);
 
     public AddCustomFieldPage EnterFieldName(string fieldName)
     {
-        _fieldNameInput.Type(fieldName);
+        _fieldNameInput.SendKeys(fieldName);
 
         return this;
     }
 
-    public AddCustomFieldPage ClickTypeDropDownArrow()
+    public AddCustomFieldPage SelectScreen(string screen)
     {
-        _typeDropDownArrow.Click();
+        _screenDropDown.SelectValue(screen);
 
         return this;
     }
 
-    public AddCustomFieldPage ClickScreenDropDownArrow()
+    public AddCustomFieldPage SelectType(string type)
     {
-        _screenDropDownArrow.Click();
+        _typeDropDown.SelectValue(type);
 
         return this;
     }
 
-    public AddCustomFieldPage ClickSelectOptionByName(string selectOption)
+    public void ClickSaveButton()
     {
-        Element.ByXPath(SelectDropDownOptionPattern, selectOption).Click();
-
-        return this;
-    }
-
-    public CustomFieldsPage ClickSaveButton()
-    {
-        _saveButton.Click();
-
-        return new CustomFieldsPage();
+        ButtonTypeSubmit.Click();
     }
 }

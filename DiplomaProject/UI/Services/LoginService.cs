@@ -15,6 +15,7 @@ public class LoginService
             .TypeUsername(Properties.Login)
             .TypePassword(Properties.Password)
             .ClickLoginButton();
+        
         return new SidePanelPage();
     }
 }

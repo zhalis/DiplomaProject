@@ -5,16 +5,13 @@ namespace DiplomaProject.UI.Pages.Admin;
 
 public class EditNationalityPage : BasePage
 {
-    private readonly Element _nameInput =
-        Element.ByXPath("//div[@class='orangehrm-card-container']//input[contains(@class,'oxd-input')]");
-
-    private readonly Element _saveButton = Element.ByXPath(ButtonTypeSubmit);
+    private readonly Element _nameInput = Element.ByXPath(InputByLabelNamePattern, "Name");
 
     public EditNationalityPage EnterNationalityName(string nationalityName)
     {
         _nameInput.Click();
         _nameInput.ClearInputUsingBackspace();
-        _nameInput.Type(nationalityName);
+        _nameInput.SendKeys(nationalityName);
 
         return this;
     }
@@ -23,7 +20,7 @@ public class EditNationalityPage : BasePage
 
     public NationalitiesPage ClickSaveButton()
     {
-        _saveButton.Click();
+        ButtonTypeSubmit.Click();
 
         return new NationalitiesPage();
     }

@@ -32,11 +32,11 @@ public class RecruitmentPageTest : BaseTest
         new AddVacancyService()
             .FillInAddVacancyForm(VacancyName, JobTitle, HiringManager)
             .ClickSaveButton();
-        BasePage.ClickRefreshButton();
+        BasePage.RefreshPage();
         vacanciesPage = new RecruitmentHeaderPage()
             .ClickVacanciesButton();
         vacanciesPage.WaitLoadingSpinnerInvisibility();
-        Assert.IsTrue(vacanciesPage.GetVacanciesName()
+        Assert.IsTrue(vacanciesPage.GetVacancies()
             .Any(vacancyName => vacancyName.Equals(VacancyName)), "The new vacancy is not listed in the job vacancies");
         var confirmationPopUp = vacanciesPage
             .ClickVacancyCheckbox(VacancyName)
@@ -46,7 +46,7 @@ public class RecruitmentPageTest : BaseTest
         confirmationPopUp.ClickYesButton();
         vacanciesPage = new VacanciesPage();
         Assert.IsTrue(vacanciesPage.IsDeletedSuccessfullyPopUpDisplayed(), "The vacancy isn't deleted");
-        Assert.IsFalse(vacanciesPage.GetVacanciesName()
+        Assert.IsFalse(vacanciesPage.GetVacancies()
             .Any(vacancyName => vacancyName.Equals(VacancyName)), "The vacancy is listed in the job vacancies");
     }
 

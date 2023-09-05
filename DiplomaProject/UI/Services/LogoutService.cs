@@ -7,7 +7,7 @@ public class LogoutService
     private readonly UserHeaderPage _userHeaderPage = new();
 
     public void Logout() =>
-        _userHeaderPage.ClickUserDropDownIcon()
-            .WaitDropDownMenuVisibility()
+        _userHeaderPage
+            .ClickUserDropDownIcon()
             .ClickLogoutButton();
 }

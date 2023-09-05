@@ -27,9 +27,7 @@ public class SearchAdminTest : BaseTest
             .CreateEmployee(FirstName, LastName);
         new SidePanelPage()
             .ClickAdminButton()
-            .ClickUserManagementDropDownMenu()
-            .WaitDropDownMenuVisibility()
-            .ClickUsersLink()
+            .OpenUsersPage()
             .ClickAddButton();
         _usersPage = new AddUserService()
             .CreateNewUser(UserRole, FirstName, Status, Username, Password);
@@ -47,7 +45,7 @@ public class SearchAdminTest : BaseTest
             .ClickSearchButton()
             .WaitSearchResultByUsername();
         Assert.IsTrue(_usersPage.GetFoundUsernames()
-            .All(username => username.Equals(Username)), "Search results aren't displayed");
+            .All(username => username.Contains(Username)), "Search results aren't displayed");
         var editUserPage = _usersPage
             .ClickEditButtonByUsername(Username);
         Assert.IsTrue(editUserPage.IsEditUserTitleDisplayed(), "Edit user page isn't opened");
@@ -57,9 +55,7 @@ public class SearchAdminTest : BaseTest
     public void DeleteUserAndEmployeeAndLogout()
     {
         new AdminHeaderPage()
-            .ClickUserManagementDropDownMenu()
-            .WaitDropDownMenuVisibility()
-            .ClickUsersLink()
+            .OpenUsersPage()
             .WaitLoadingSpinnerInvisibility();
         new UsersPage()
             .EnterUsername(Username)

@@ -1,57 +1,40 @@
 using DiplomaProject.UI.Framework.Element;
+using DiplomaProject.UI.Framework.Element.DropDowns;
 
 namespace DiplomaProject.UI.Pages.Recruitment;
 
 public class AddVacancyPage : BasePage
 {
-    private readonly Element _addVacancyTitle = Element.ByXPath(HeaderByTextPattern, "Add Vacancy");
+    private const string AddVacancyTitle = "Add Vacancy";
 
-    private readonly Element _vacancyNameInput = Element.ByXPath(
-            "//label[text()='Vacancy Name']//ancestor::div[contains(@class,'oxd-input')]//input[contains(@class,'oxd-input')]");
+    private readonly Element _vacancyNameInput = Element.ByXPath(InputByLabelNamePattern, "Vacancy Name");
 
-    private readonly Element _jobTitleDropDownArrow =
-        Element.ByXPath("//div[@class='oxd-select-text--after']//i[contains(@class,'bi-caret-down-fill')]");
-    
-    private readonly Element _hiringManagerInput = Element.ByXPath(InputByPlaceholderPattern, "Type for hints...");
-    
-    private readonly Element _saveButton = Element.ByXPath(ButtonTypeSubmit);
+    private readonly DropDown _jobTitleDropDown = SelectDropDown.ByLabel("Job Title");
 
-    public bool IsAddVacancyTitleDisplayed() => _addVacancyTitle.IsDisplayed();
+    private readonly DropDown _hiringManagerDropDown = AutocompleteDropDown.ByLabel("Hiring Manager");
+
+    public bool IsAddVacancyTitleDisplayed() => IsHeaderDisplayed(AddVacancyTitle);
 
     public AddVacancyPage EnterVacancyName(string vacancyName)
     {
-        _vacancyNameInput.Type(vacancyName);
+        _vacancyNameInput.SendKeys(vacancyName);
 
         return this;
     }
 
-    public AddVacancyPage ClickJobTitleDropDownArrow()
+    public AddVacancyPage SelectJobTitle(string jobTitle)
     {
-        _jobTitleDropDownArrow.Click();
-
-        return this;
-    }
-
-    public AddVacancyPage ClickJobTitleDropDownOptionByName(string jobTitle)
-    {
-        Element.ByXPath(SelectDropDownOptionPattern, jobTitle).Click();
+        _jobTitleDropDown.SelectValue(jobTitle);
 
         return this;
     }
 
     public AddVacancyPage EnterHiringManagerName(string hiringManagerName)
     {
-        _hiringManagerInput.Type(hiringManagerName);
+        _hiringManagerDropDown.SelectValue(hiringManagerName);
 
         return this;
     }
 
-    public AddVacancyPage ClickManagerDropDownOptionByName(string hiringManager)
-    {
-        Element.ByXPath(AutocompleteDropDownOptionPattern, hiringManager).Click();
-
-        return this;
-    }
-
-    public void ClickSaveButton() => _saveButton.Click();
+    public void ClickSaveButton() => ButtonTypeSubmit.Click();
 }

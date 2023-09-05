@@ -10,42 +10,51 @@ public class Element
 {
     private const int DefaultTimeOutInSeconds = 20;
     private readonly By _by;
+    private readonly IWebDriver _driver;
+    private IWebElement? _element;
 
     private Element(By by)
     {
         _by = by;
+        _driver = WebDriverSingleton.GetDriver;
     }
+
+    private IWebElement GetElement => _element ??= WaitForPresence();
 
     public static Element ByXPath(string xPath, params object[] parameters) =>
         new(By.XPath(string.Format(xPath, parameters)));
 
-    public void Click() =>
-        WaitForClickable().Click();
+    public void Click() => WaitForClickable().Click();
 
-    public void Type(string value) => WaitForVisibility().SendKeys(value);
+    public void SendKeys(string value) => WaitForVisibility().SendKeys(value);
 
     public void ClearInputUsingBackspace() =>
         GetAttributeValue(Attributes.ValueCssProperty).ToList()
-            .ForEach(_ => WebDriverSingleton.GetDriver.FindElement(_by).SendKeys(Keys.Backspace));
+            .ForEach(_ => GetElement.SendKeys(Keys.Backspace));
 
-    public string GetAttributeValue(string attribute) => 
-        WebDriverSingleton.GetDriver.FindElement(_by).GetAttribute(attribute);
+    public string GetAttributeValue(string attribute) => GetElement.GetAttribute(attribute);
 
     public bool IsDisplayed() => WaitForVisibility().Displayed;
 
-    private IWebElement WaitForClickable() =>
-        new WebDriverWait(WebDriverSingleton.GetDriver, TimeSpan.FromSeconds(DefaultTimeOutInSeconds))
-            .Until(ExpectedConditions.ElementToBeClickable(_by));
+    public bool IsSelected() => GetElement.Selected;
 
     public IWebElement WaitForVisibility() =>
-        new WebDriverWait(WebDriverSingleton.GetDriver, TimeSpan.FromSeconds(DefaultTimeOutInSeconds))
+        new WebDriverWait(_driver, TimeSpan.FromSeconds(DefaultTimeOutInSeconds))
             .Until(ExpectedConditions.ElementIsVisible(_by));
 
     public void WaitForInvisibility() =>
-        new WebDriverWait(WebDriverSingleton.GetDriver, TimeSpan.FromSeconds(DefaultTimeOutInSeconds))
+        new WebDriverWait(_driver, TimeSpan.FromSeconds(DefaultTimeOutInSeconds))
             .Until(ExpectedConditions.InvisibilityOfElementLocated(_by));
 
     public IEnumerable<IWebElement> WaitForPresenceOfAllElements() =>
-        new WebDriverWait(WebDriverSingleton.GetDriver, TimeSpan.FromSeconds(DefaultTimeOutInSeconds))
+        new WebDriverWait(_driver, TimeSpan.FromSeconds(DefaultTimeOutInSeconds))
             .Until(ExpectedConditions.PresenceOfAllElementsLocatedBy(_by));
+
+    private IWebElement WaitForClickable() =>
+        new WebDriverWait(_driver, TimeSpan.FromSeconds(DefaultTimeOutInSeconds))
+            .Until(ExpectedConditions.ElementToBeClickable(_by));
+
+    private IWebElement WaitForPresence() =>
+        new WebDriverWait(_driver, TimeSpan.FromSeconds(DefaultTimeOutInSeconds))
+            .Until(ExpectedConditions.ElementExists(_by));
 }

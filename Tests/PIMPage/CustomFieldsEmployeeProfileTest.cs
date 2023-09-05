@@ -30,8 +30,7 @@ public class CustomFieldsEmployeeProfileTest : BaseTest
     public void Scenario19ValidateAddCustomFieldsEmployeeProfile()
     {
         var customFieldsPage = new PimHeaderPage()
-            .ClickConfigurationMenu()
-            .ClickCustomFieldsLink();
+            .OpenCustomFieldsPage();
         Assert.IsTrue(customFieldsPage.IsCustomFieldsTitleDisplayed(), "Custom Fields title isn't displayed");
         var addCustomFieldPage = customFieldsPage
             .ClickAddButton();
@@ -39,10 +38,8 @@ public class CustomFieldsEmployeeProfileTest : BaseTest
         Assert.IsTrue(addCustomFieldPage.IsAddCustomFieldTitleDisplayed(), "'Add Custom Field' form isn't displayed");
         addCustomFieldPage
             .EnterFieldName(CustomFieldName)
-            .ClickScreenDropDownArrow()
-            .ClickSelectOptionByName(Screen)
-            .ClickTypeDropDownArrow()
-            .ClickSelectOptionByName(FieldType)
+            .SelectScreen(Screen)
+            .SelectType(FieldType)
             .ClickSaveButton();
         Assert.IsTrue(addCustomFieldPage.IsSavedSuccessfullyPopUpDisplayed(), "New custom field isn't saved");
         new PimHeaderPage()
@@ -65,8 +62,7 @@ public class CustomFieldsEmployeeProfileTest : BaseTest
         new PimHeaderPage().ClickEmployeeListButton();
         new EmployeeService().DeleteEmployee(_employeeId);
         new PimHeaderPage()
-            .ClickConfigurationMenu()
-            .ClickCustomFieldsLink()
+            .OpenCustomFieldsPage()
             .ClickTrashBinButtonBuCustomFieldName(FieldType)
             .WaitPopUpVisibility()
             .ClickYesButton();

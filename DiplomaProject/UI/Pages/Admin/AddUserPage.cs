@@ -1,83 +1,62 @@
 using DiplomaProject.UI.Framework.Element;
+using DiplomaProject.UI.Framework.Element.DropDowns;
 
 namespace DiplomaProject.UI.Pages.Admin;
 
 public class AddUserPage : BasePage
 {
-    private const string DropDownArrowPattern =
-        "//label[text()='{0}']//ancestor::div[contains(@class,'oxd-input-group')]" +
-        "//i[contains(@class,'bi-caret-down-fill')]";
-
-    private const string InputByLabelNamePattern =
-        "//label[text()='{0}']//ancestor::div[contains(@class,'oxd-input-group')]//input[contains(@class,'oxd-input')]";
-
-    private readonly Element _userRoleArrow = Element.ByXPath(DropDownArrowPattern, "User Role");
-    private readonly Element _statusArrow = Element.ByXPath(DropDownArrowPattern, "Status");
-    private readonly Element _employeeNameInput = Element.ByXPath(InputByPlaceholderPattern, "Type for hints...");
+    private readonly DropDown _userRoleDropDown = SelectDropDown.ByLabel("User Role");
+    private readonly DropDown _statusDropDown = SelectDropDown.ByLabel("Status");
+    private readonly DropDown _employeeNameDropDown = AutocompleteDropDown.ByLabel("Employee Name");
     private readonly Element _usernameInput = Element.ByXPath(InputByLabelNamePattern, "Username");
     private readonly Element _passwordInput = Element.ByXPath(InputByLabelNamePattern, "Password");
     private readonly Element _confirmPasswordInput = Element.ByXPath(InputByLabelNamePattern, "Confirm Password");
-    private readonly Element _saveButton = Element.ByXPath(ButtonTypeSubmit);
 
-    public AddUserPage EnterEmployeeName(string employeeName)
+    public AddUserPage SelectEmployeeName(string employeeName)
     {
-        _employeeNameInput.Type(employeeName);
+        _employeeNameDropDown.SelectValue(employeeName);
 
         return this;
     }
 
     public AddUserPage EnterUsername(string username)
     {
-        _usernameInput.Type(username);
+        _usernameInput.SendKeys(username);
 
         return this;
     }
 
     public AddUserPage EnterPassword(string password)
     {
-        _passwordInput.Type(password);
+        _passwordInput.SendKeys(password);
 
         return this;
     }
 
     public AddUserPage EnterConfirmPassword(string password)
     {
-        _confirmPasswordInput.Type(password);
+        _confirmPasswordInput.SendKeys(password);
 
         return this;
     }
 
-    public AddUserPage ClickUserRoleDropDownArrow()
+    public AddUserPage SelectUserRole(string userRole)
     {
-        _userRoleArrow.Click();
+        _userRoleDropDown.SelectValue(userRole);
 
         return this;
     }
 
-    public AddUserPage ClickStatusDropDownArrow()
+    public AddUserPage SelectStatus(string status)
     {
-        _statusArrow.Click();
-
-        return this;
-    }
-
-    public AddUserPage ClickSelectOptionByName(string selectOption)
-    {
-        Element.ByXPath(SelectDropDownOptionPattern, selectOption).Click();
-
-        return this;
-    }
-
-    public AddUserPage ClickAutocompleteOptionByName(string employeeName)
-    {
-        Element.ByXPath(AutocompleteDropDownOptionPattern, employeeName).Click();
+        _statusDropDown.SelectValue(status);
 
         return this;
     }
 
     public UsersPage ClickSaveButton()
     {
-        _saveButton.Click();
+        ButtonTypeSubmit.Click();
 
         return new UsersPage();
     }

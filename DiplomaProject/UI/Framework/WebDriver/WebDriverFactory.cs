@@ -11,16 +11,14 @@ public static class WebDriverFactory
     private const int DefaultTimeOutInSeconds = 20;
     private const int ShortTimeoutInSeconds = 2;
 
-    public static OpenQA.Selenium.WebDriver GetWebDriver(BrowserName browserName)
-    {
-        return browserName switch
+    public static OpenQA.Selenium.WebDriver GetWebDriver(BrowserName browserName) =>
+        browserName switch
         {
             Chrome => CreateDriver(() => new ChromeDriver()),
             Firefox => CreateDriver(() => new FirefoxDriver()),
             Edge => CreateDriver(() => new EdgeDriver()),
             _ => throw new ArgumentException($"Unsupported browser name: {browserName.ToString()}")
         };
-    }
 
     private static T CreateDriver<T>(Supplier<T> driverSupplier) where T : OpenQA.Selenium.WebDriver
     {

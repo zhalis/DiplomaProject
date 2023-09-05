@@ -87,8 +87,7 @@ public class PimPageTest : BaseTest
         qualificationsPage.WaitLoadingSpinnerInvisibility();
         Assert.IsTrue(qualificationsPage.IsAddSkillTitleDisplayed(), "Skill form isn't displayed");
         qualificationsPage
-            .ClickSkillDropDownArrow()
-            .ClickSelectOptionByName(SkillName)
+            .SelectSkill(SkillName)
             .ClickSaveButton();
         Assert.IsTrue(qualificationsPage.IsSavedSuccessfullyPopUpDisplayed(), "New skill isn't saved");
         Assert.IsTrue(qualificationsPage.GetSkillNamesFromSkillList()

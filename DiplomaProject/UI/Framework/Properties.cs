@@ -5,10 +5,8 @@ namespace DiplomaProject.UI.Framework;
 
 public static class Properties
 {
-    private const string AppSettingsPath = "appsettings.json";
-
     private static IConfiguration Configuration { get; } = new ConfigurationBuilder()
-        .AddJsonFile(AppSettingsPath, false, true).Build();
+        .AddJsonFile("appsettings.json", false, true).Build();
 
     public static readonly BrowserName Browser = Enum.Parse<BrowserName>(Configuration["Common:Browser"], true);
     public static readonly string OrangeHrmUrl = Configuration["Common:BaseUrl"];

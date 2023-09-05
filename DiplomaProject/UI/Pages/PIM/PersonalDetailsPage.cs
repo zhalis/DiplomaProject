@@ -5,31 +5,27 @@ namespace DiplomaProject.UI.Pages.PIM;
 
 public class PersonalDetailsPage : BasePage
 {
-    private const string FieldLabelByNamePattern = "//label[text()='{0}']";
+    private const string PersonalDetailsTitle = "Personal Details";
 
-    private const string FieldInputByLabelNamePattern =
-        "//label[text()='{0}']//ancestor::div[contains(@class,'oxd-input-group')]" +
-        "//input[contains(@class,'oxd-input')]";
+    private const string FieldLabelByNamePattern = "//*[text()='{0}']";
 
-    private readonly Element _personalDetailsTitle = Element.ByXPath(HeaderByTextPattern, "Personal Details");
-    
+    private const string QualificationsLink = "Qualifications";
+
     private readonly Element _firstNameInput = Element.ByXPath(InputByPlaceholderPattern, "First Name");
-    
-    private readonly Element _qualificationsTab = Element.ByXPath(LinkByTextPattern, "Qualifications");
 
     private readonly Element _saveButton =
-        Element.ByXPath("//div[contains(@class,'orangehrm-horizontal-padding')]//button[@type='submit']");
+        Element.ByXPath("//*[contains(@class,'orangehrm-horizontal-padding')]//*[@type='submit']");
 
     private readonly Element _customFieldsSaveButton =
-        Element.ByXPath("//div[@class='orangehrm-custom-fields']//button[@type='submit']");
+        Element.ByXPath("//*[@class='orangehrm-custom-fields']//*[@type='submit']");
 
-    public bool IsPersonalTitleDisplayed() => _personalDetailsTitle.IsDisplayed();
+    public bool IsPersonalTitleDisplayed() => IsHeaderDisplayed(PersonalDetailsTitle);
 
     public PersonalDetailsPage EnterNewFirstName(string firstName)
     {
         _firstNameInput.Click();
         _firstNameInput.ClearInputUsingBackspace();
-        _firstNameInput.Type(firstName);
+        _firstNameInput.SendKeys(firstName);
 
         return this;
     }
@@ -48,7 +44,7 @@ public class PersonalDetailsPage : BasePage
 
     public PersonalDetailsPage EnterFieldValue(string fieldLabel, string value)
     {
-        Element.ByXPath(FieldInputByLabelNamePattern, fieldLabel).Type(value);
+        Element.ByXPath(InputByLabelNamePattern, fieldLabel).SendKeys(value);
 
         return this;
     }
@@ -62,7 +58,7 @@ public class PersonalDetailsPage : BasePage
 
     public QualificationsPage ClickQualificationsTab()
     {
-        _qualificationsTab.Click();
+        ClickLinkByName(QualificationsLink);
 
         return new QualificationsPage();
     }

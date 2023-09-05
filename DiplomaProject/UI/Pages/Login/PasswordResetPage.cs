@@ -4,29 +4,27 @@ namespace DiplomaProject.UI.Pages.Login;
 
 public class PasswordResetPage : BasePage
 {
-    private readonly Element _passwordResetHeaderTitle = Element.ByXPath(HeaderByTextPattern, "Reset Password");
+    private const string PasswordResetHeaderTitle = "Reset Password";
 
-    private readonly Element _usernameInput = Element.ByXPath(InputByPlaceholderPattern, "Username");
+    private const string ConfirmationMessageForPasswordReset = "Reset Password link sent successfully";
 
-    private readonly Element _resetPasswordButton = Element.ByXPath(ButtonTypeSubmit);
+    private readonly Element _usernameInput = Element.ByXPath(InputByLabelNamePattern, "Username");
 
-    private readonly Element _confirmationMessageForPasswordReset =
-        Element.ByXPath(HeaderByTextPattern, "Reset Password link sent successfully");
+    public bool IsPasswordResetHeaderDisplayed() => IsHeaderDisplayed(PasswordResetHeaderTitle);
 
-    public bool IsPasswordResetHeaderDisplayed() => _passwordResetHeaderTitle.IsDisplayed();
-
-    public bool IsConfirmationMessageForPasswordResetDisplayed() => _confirmationMessageForPasswordReset.IsDisplayed();
+    public bool IsConfirmationMessageForPasswordResetDisplayed() =>
+        IsHeaderDisplayed(ConfirmationMessageForPasswordReset);
 
     public PasswordResetPage EnterUsername(string username)
     {
-        _usernameInput.Type(username);
+        _usernameInput.SendKeys(username);
 
         return this;
     }
 
     public PasswordResetPage ClickResetPasswordButton()
     {
-        _resetPasswordButton.Click();
+        ButtonTypeSubmit.Click();
 
         return this;
     }

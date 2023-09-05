@@ -25,8 +25,7 @@ public class LeavePageTest : BaseTest
             .CreateEmployee(FirstName, LastName);
         new SidePanelPage()
             .ClickLeaveButton()
-            .ClickEntitlementsDropDownMenu()
-            .ClickAddEntitlementsLink();
+            .OpenAddEntitlementsPage();
         new AddEntitlementsService()
             .CreateEntitlement(FirstName, LeaveType, Entitlement);
     }

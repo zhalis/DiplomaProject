@@ -10,10 +10,8 @@ public class AddEntitlementsService
     {
         _addEntitlementsPage.WaitLoadingSpinnerInvisibility();
         _addEntitlementsPage
-            .EnterEmployeeName(employeeName)
-            .ClickAutocompleteOptionByName(employeeName)
-            .ClickLeaveTypeDropDownArrow()
-            .ClickSelectOptionByName(leaveType)
+            .SelectEmployee(employeeName)
+            .SelectLeaveType(leaveType)
             .EnterEntitlement(entitlement)
             .ClickSaveButton()
             .ClickConfirmButton();

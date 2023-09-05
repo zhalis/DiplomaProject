@@ -11,7 +11,7 @@ namespace DiplomaProject.UI.Pages;
 
 public class SidePanelPage : BasePage
 {
-    private readonly Element _brandBanner = Element.ByXPath("//img[@alt='client brand banner']");
+    private readonly Element _brandBanner = Element.ByXPath("//*[@alt='client brand banner']");
     private readonly Element _pimButton = Element.ByXPath(SpanByTextPattern, "PIM");
     private readonly Element _adminButton = Element.ByXPath(SpanByTextPattern, "Admin");
     private readonly Element _leaveButton = Element.ByXPath(SpanByTextPattern, "Leave");
@@ -19,14 +19,14 @@ public class SidePanelPage : BasePage
     private readonly Element _recruitmentButton = Element.ByXPath(SpanByTextPattern, "Recruitment");
     private readonly Element _dashboardButton = Element.ByXPath(SpanByTextPattern, "Dashboard");
     private readonly Element _searchInput = Element.ByXPath(InputByPlaceholderPattern, "Search");
-    private readonly Element _sideMenuItem = Element.ByXPath("//span[contains(@class,'oxd-main-menu-item--name')]");
+    private readonly Element _sideMenuItem = Element.ByXPath("//*[contains(@class,'oxd-main-menu-item--name')]");
 
     public bool IsBrandBannerDisplayed() => _brandBanner.IsDisplayed();
 
     public string GetSearchBarInputValue() => _searchInput.GetAttributeValue(Attributes.ValueCssProperty);
 
-    public IEnumerable<string> GetSideMenuItemText() =>
-        _sideMenuItem.WaitForPresenceOfAllElements().Select(title => title.Text);
+    public List<string> GetSideMenuItems() =>
+        _sideMenuItem.WaitForPresenceOfAllElements().Select(title => title.Text).ToList();
 
     public PimHeaderPage ClickPimButton()
     {
@@ -72,7 +72,7 @@ public class SidePanelPage : BasePage
 
     public SidePanelPage EnterSearchValue(string searchValue)
     {
-        _searchInput.Type(searchValue);
+        _searchInput.SendKeys(searchValue);
 
         return this;
     }

@@ -1,37 +1,29 @@
-using DiplomaProject.UI.Framework.Element;
+using DiplomaProject.UI.Framework.Element.DropDowns;
 
 namespace DiplomaProject.UI.Pages.Leave;
 
 public class LeaveHeaderPage : BasePage
 {
-    private readonly Element _leaveHeaderTitle = Element.ByXPath(HeaderByTextPattern, "Leave");
-    
-    private readonly Element _entitlementsDropDownMenu = Element.ByXPath(SpanByTextPattern, "Entitlements ");
-    
-    private readonly Element _addEntitlementsLinkInDropDown = Element.ByXPath(LinkByTextPattern, "Add Entitlements");
+    private const string LeaveHeaderTitle = "Leave";
 
-    private readonly Element _assignLeaveButtonInTopBarMenu =
-        Element.ByXPath("//li[contains(@class,'oxd-topbar-body-nav-tab')]//a[text()='Assign Leave']");
+    private const string AddEntitlementsLink = "Add Entitlements";
 
-    public bool IsLeaveHeaderTitleDisplayed() => _leaveHeaderTitle.IsDisplayed();
+    private const string AssignLeaveLink = "Assign Leave";
+
+    private readonly DropDown _entitlementsDropDown = HeaderDropDown.ByLabel("Entitlements ");
+
+    public bool IsLeaveHeaderTitleDisplayed() => IsHeaderDisplayed(LeaveHeaderTitle);
 
     public AssignLeavePage ClickAssignButton()
     {
-        _assignLeaveButtonInTopBarMenu.Click();
+        ClickLinkByName(AssignLeaveLink);
 
         return new AssignLeavePage();
     }
 
-    public LeaveHeaderPage ClickEntitlementsDropDownMenu()
+    public AddEntitlementsPage OpenAddEntitlementsPage()
     {
-        _entitlementsDropDownMenu.Click();
-
-        return this;
-    }
-
-    public AddEntitlementsPage ClickAddEntitlementsLink()
-    {
-        _addEntitlementsLinkInDropDown.Click();
+        _entitlementsDropDown.SelectValue(AddEntitlementsLink);
 
         return new AddEntitlementsPage();
     }

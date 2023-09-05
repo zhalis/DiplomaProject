@@ -9,11 +9,10 @@ public class AssignLeaveService
     public AssignLeavePage FillInAssignLeaveForm(string employeeName, string leaveType, string comment)
     {
         _assignLeavePage.WaitLoadingSpinnerInvisibility();
+        
         return _assignLeavePage
-            .EnterEmployeeName(employeeName)
-            .ClickAutocompleteOptionByName(employeeName)
-            .ClickLeaveTypeDropDownArrow()
-            .ClickSelectOptionByName(leaveType)
+            .SelectEmployeeName(employeeName)
+            .SelectLeaveType(leaveType)
             .ClickFromDateCalendarIcon()
             .ClickTodayButtonInCalendarDropDown()
             .ClickToDateCalendarIcon()

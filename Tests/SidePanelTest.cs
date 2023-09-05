@@ -18,7 +18,7 @@ public class SidePanelTest : BaseTest
         var sidePanelPage = new SidePanelPage()
             .EnterSearchValue(Keyword);
         Assert.AreEqual(Keyword, sidePanelPage.GetSearchBarInputValue(), "Keyword isn't entered");
-        Assert.IsTrue(sidePanelPage.GetSideMenuItemText()
+        Assert.IsTrue(sidePanelPage.GetSideMenuItems()
             .All(item => item.Contains(Keyword)), "Result doesn't match the entered keyword");
     }
 

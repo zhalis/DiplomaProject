@@ -4,18 +4,14 @@ namespace DiplomaProject.UI.Pages.Recruitment;
 
 public class VacanciesPage : BasePage
 {
-    private readonly Element _vacanciesPageTitle = Element.ByXPath("//h5[text()='Vacancies']");
+    private const string VacancyColumnName = "Vacancy";
+
+    private readonly Element _vacanciesPageTitle = Element.ByXPath("//*[text()='Vacancies']");
 
     private readonly Element _addVacancyButton =
-        Element.ByXPath("//button[@type='button']//i[contains(@class,'bi-plus')]");
+        Element.ByXPath("//*[@type='button']//*[contains(@class,'bi-plus')]");
 
-    private readonly Element _deleteSelectedButton = Element.ByXPath(
-        "//button[contains(@class,'oxd-button')]//i[contains(@class,'bi-trash-fill')]");
-    
-    private readonly Element _vacancyNameFromList = Element.ByXPath("//div[contains(@class,'oxd-table-cell')][2]/div");
-
-    private readonly string _vacancyCheckboxByVacancyName =
-        "//div[text()='{0}']//ancestor::div[contains(@class,'oxd-table-row')]//span";
+    private readonly Table _vacancies = new();
 
     public bool IsVacanciesTitleDisplayed() => _vacanciesPageTitle.IsDisplayed();
 
@@ -28,17 +24,17 @@ public class VacanciesPage : BasePage
 
     public ConfirmationPopUp ClickDeleteSelectedButton()
     {
-        _deleteSelectedButton.Click();
+        _vacancies.ClickDeleteSelected();
 
         return new ConfirmationPopUp();
     }
 
-    public IEnumerable<string> GetVacanciesName() =>
-        _vacancyNameFromList.WaitForPresenceOfAllElements().Select(vacancy => vacancy.Text);
+    public List<string> GetVacancies() =>
+        _vacancies.GetElementsByColumn(VacancyColumnName);
 
     public VacanciesPage ClickVacancyCheckbox(string vacancy)
     {
-        Element.ByXPath(_vacancyCheckboxByVacancyName, vacancy).Click();
+        _vacancies.ClickCheckboxByColumnValue(vacancy);
 
         return this;
     }

@@ -1,32 +1,27 @@
 using DiplomaProject.UI.Framework.Element;
+using DiplomaProject.UI.Framework.Element.DropDowns;
 
 namespace DiplomaProject.UI.Pages.PIM;
 
 public class QualificationsPage : BasePage
 {
-    private readonly Element _qualificationsTitle = Element.ByXPath(HeaderByTextPattern, "Qualifications");
+    private const string QualificationsTitle = "Qualifications";
 
-    private readonly Element _addSkillTitle = Element.ByXPath(HeaderByTextPattern, "Add Skill");
+    private const string AddSkillTitle = "Add Skill";
 
-    private readonly Element _addSkillButton = Element.ByXPath(
-        "//h6[text()='Skills']/parent::div//button[@type='button' and contains(@class,'oxd-button--text')]");
+    private readonly Element _addSkillButton = Element.ByXPath("//*[.//text()='Skills']/*[@type='button']");
 
-    private readonly Element _skillDropDownArrow =
-        Element.ByXPath("//label[text()='Skill']//ancestor::div[contains(@class,'oxd-input-group')]" +
-                        "//i[contains(@class,'bi-caret-down-fill')]");
+    private readonly DropDown _skillDropDown = SelectDropDown.ByLabel("Skill");
 
     private readonly Element _skillFromSkillList = Element.ByXPath(
-        "//h6[text()='Skills']//ancestor::div[contains(@class,'orangehrm-horizontal-padding')]" +
-        "//following-sibling::div//div[contains(@class,'oxd-table-cell')][2]");
+        "//*[.//text()='Skill'][contains(@class,'oxd-table')]//div[contains(@class,'oxd-table-cell')][2]");
 
-    private readonly Element _saveButton = Element.ByXPath(ButtonTypeSubmit);
+    public bool IsQualificationsTitleDisplayed() => IsHeaderDisplayed(QualificationsTitle);
 
-    public bool IsQualificationsTitleDisplayed() => _qualificationsTitle.IsDisplayed();
-    
-    public bool IsAddSkillTitleDisplayed() => _addSkillTitle.IsDisplayed();
+    public bool IsAddSkillTitleDisplayed() => IsHeaderDisplayed(AddSkillTitle);
 
-    public IEnumerable<string> GetSkillNamesFromSkillList() =>
-        _skillFromSkillList.WaitForPresenceOfAllElements().Select(skill => skill.Text);
+    public List<string> GetSkillNamesFromSkillList() =>
+        _skillFromSkillList.WaitForPresenceOfAllElements().Select(skill => skill.Text).ToList();
 
     public QualificationsPage ClickAddSkillButton()
     {
@@ -35,23 +30,16 @@ public class QualificationsPage : BasePage
         return this;
     }
 
-    public QualificationsPage ClickSkillDropDownArrow()
+    public QualificationsPage SelectSkill(string skillName)
     {
-        _skillDropDownArrow.Click();
-
-        return this;
-    }
-
-    public QualificationsPage ClickSelectOptionByName(string selectOption)
-    {
-        Element.ByXPath(SelectDropDownOptionPattern, selectOption).Click();
+        _skillDropDown.SelectValue(skillName);
 
         return this;
     }
 
     public QualificationsPage ClickSaveButton()
     {
-        _saveButton.Click();
+        ButtonTypeSubmit.Click();
 
         return this;
     }

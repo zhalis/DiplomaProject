@@ -1,56 +1,40 @@
 using DiplomaProject.UI.Framework.Element;
+using DiplomaProject.UI.Framework.Element.DropDowns;
 
 namespace DiplomaProject.UI.Pages.Leave;
 
 public class AssignLeavePage : BasePage
 {
     private const string CalendarButtonPattern =
-        "//label[text()='{0}']//ancestor::div[contains(@class,'oxd-input-group')]//i[contains(@class,'bi-calendar')]";
+        "//*[.//text()='{0}'][contains(@class,'oxd-input-group')]//i[contains(@class,'bi-calendar')]";
 
-    private readonly Element _assignLeaveHeaderTitle = Element.ByXPath(HeaderByTextPattern, "Assign Leave");
+    private const string AssignLeaveHeaderTitle = "Assign Leave";
 
-    private readonly Element _employeeNameInput = Element.ByXPath(InputByPlaceholderPattern, "Type for hints...");
+    private readonly DropDown _leaveTypeDropDown = SelectDropDown.ByLabel("Leave Type");
 
-    private readonly Element _leaveTypeDropDownArrow =
-        Element.ByXPath("//div[@class='oxd-select-text--after']//i[contains(@class,'bi-caret-down-fill')]");
+    private readonly DropDown _employeeNameDropDown = AutocompleteDropDown.ByLabel("Employee Name");
 
     private readonly Element _fromDateCalendarIcon = Element.ByXPath(CalendarButtonPattern, "From Date");
 
     private readonly Element _toDateCalendarIcon = Element.ByXPath(CalendarButtonPattern, "To Date");
 
     private readonly Element _todayButtonInCalendarDropDown =
-        Element.ByXPath("//div[contains(@class,'oxd-date-input-calendar')]//div[text()='Today']");
+        Element.ByXPath("//*[contains(@class,'oxd-date-input-calendar')]//div[text()='Today']");
 
-    private readonly Element _commentsInput = Element.ByXPath("//textarea[contains(@class,'oxd-textarea')]");
+    private readonly Element _commentsInput = Element.ByXPath("//*[contains(@class,'oxd-textarea')]");
 
-    private readonly Element _assignButton = Element.ByXPath(ButtonTypeSubmit);
+    public bool IsAssignLeaveTitleDisplayed() => IsHeaderDisplayed(AssignLeaveHeaderTitle);
 
-    public bool IsAssignLeaveTitleDisplayed() => _assignLeaveHeaderTitle.IsDisplayed();
-
-    public AssignLeavePage EnterEmployeeName(string employeeName)
+    public AssignLeavePage SelectEmployeeName(string employeeName)
     {
-        _employeeNameInput.Type(employeeName);
+        _employeeNameDropDown.SelectValue(employeeName);
 
         return this;
     }
 
-    public AssignLeavePage ClickAutocompleteOptionByName(string autocompleteOption)
+    public AssignLeavePage SelectLeaveType(string leaveType)
     {
-        Element.ByXPath(AutocompleteDropDownOptionPattern, autocompleteOption).Click();
-
-        return this;
-    }
-
-    public AssignLeavePage ClickLeaveTypeDropDownArrow()
-    {
-        _leaveTypeDropDownArrow.Click();
-
-        return this;
-    }
-
-    public AssignLeavePage ClickSelectOptionByName(string selectOption)
-    {
-        Element.ByXPath(SelectDropDownOptionPattern, selectOption).Click();
+        _leaveTypeDropDown.SelectValue(leaveType);
 
         return this;
     }
@@ -78,14 +62,14 @@ public class AssignLeavePage : BasePage
 
     public AssignLeavePage EnterComment(string comment)
     {
-        _commentsInput.Type(comment);
+        _commentsInput.SendKeys(comment);
 
         return this;
     }
 
     public AssignLeavePage ClickAssignButton()
     {
-        _assignButton.Click();
+        ButtonTypeSubmit.Click();
 
         return this;
     }

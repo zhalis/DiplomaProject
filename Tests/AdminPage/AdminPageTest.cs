@@ -33,9 +33,7 @@ public class AdminPageTest : BaseTest
     {
         var jobTitlesPage = new SidePanelPage()
             .ClickAdminButton()
-            .ClickJobDropDownMenu()
-            .WaitDropDownMenuVisibility()
-            .ClickJobTitlesInDropDownMenu();
+            .OpenJobTitlesPage();
         Assert.IsTrue(jobTitlesPage.IsJobTitlesHeaderDisplayed(), "'Job Titles' page isn't displayed");
         jobTitlesPage.ClickAddButton()
             .WaitLoadingSpinnerInvisibility();
@@ -46,8 +44,7 @@ public class AdminPageTest : BaseTest
             .ClickSaveButton();
         Assert.IsTrue(addJobTitlePage.IsSavedSuccessfullyPopUpDisplayed(), "New job title isn't saved");
         jobTitlesPage = new JobTitlesPage();
-        Assert.IsTrue(jobTitlesPage.GetJobTitlesText()
-            .Any(jobTitle => jobTitle.Equals(JobTitle)), "The new job title isn't listed");
+        CollectionAssert.Contains(jobTitlesPage.GetJobTitles(), JobTitle, "The new job title isn't listed");
         jobTitlesPage
             .ClickCheckboxByJobTitleName(JobTitle);
         Assert.IsTrue(jobTitlesPage.IsCheckboxSelectedByJobTitleName(JobTitle), "The checkbox isn't selected");
@@ -57,7 +54,7 @@ public class AdminPageTest : BaseTest
         confirmationPopUp.ClickYesButton();
         jobTitlesPage = new JobTitlesPage();
         Assert.IsTrue(jobTitlesPage.IsDeletedSuccessfullyPopUpDisplayed(), "The job title isn't deleted");
-        Assert.IsFalse(jobTitlesPage.GetJobTitlesText().Any(jobTitle => jobTitle.Equals(JobTitle)),
+        CollectionAssert.DoesNotContain(jobTitlesPage.GetJobTitles(), JobTitle,
             "The job title is displayed in the list");
     }
 }

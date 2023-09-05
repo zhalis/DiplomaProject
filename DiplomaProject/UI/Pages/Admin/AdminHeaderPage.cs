@@ -1,73 +1,68 @@
-using DiplomaProject.UI.Framework.Element;
+using DiplomaProject.UI.Framework.Element.DropDowns;
 
 namespace DiplomaProject.UI.Pages.Admin;
 
 public class AdminHeaderPage : BasePage
 {
-    private readonly Element _nationalitiesButton = Element.ByXPath(LinkByTextPattern, "Nationalities");
+    private const string AdminTitle = "Admin";
 
-    private readonly Element _adminTitle = Element.ByXPath(HeaderByTextPattern, "Admin");
+    private const string NationalitiesLinkName = "Nationalities";
 
-    private readonly Element _dropDownMenu = Element.ByXPath("//ul[@class='oxd-dropdown-menu']");
+    private const string UsersLinkName = "Users";
 
-    private readonly Element _usersLinkInDropDownMenu = Element.ByXPath(LinkByTextPattern, "Users");
+    private const string JobTitlesOptionInDropDown = "Job Titles";
 
-    private readonly Element _userManagementDropDownButton =
-        Element.ByXPath(SpanByTextPattern, "User Management ");
+    private readonly HeaderDropDown _userManagementDropDown = HeaderDropDown.ByLabel("User Management ");
 
-    private readonly Element _jobDropDownButton =
-        Element.ByXPath(SpanByTextPattern, "Job ");
+    private readonly HeaderDropDown _jobDropDown = HeaderDropDown.ByLabel("Job ");
 
-    private readonly Element _jobTitlesLinkInDropDown =
-        Element.ByXPath("//ul[@class='oxd-dropdown-menu']//a[text()='Job Titles']");
+    public bool IsAdminTitleDisplayed() => IsHeaderDisplayed(AdminTitle);
 
-    public bool IsAdminTitleDisplayed() => _adminTitle.IsDisplayed();
+    public bool IsJobTitlesLinkDisplayed() => _jobDropDown.IsOptionDisplayedInDropDown(JobTitlesOptionInDropDown);
 
-    public bool IsJobTitlesLinkDisplayed() => _jobTitlesLinkInDropDown.IsDisplayed();
+    public bool IsDropDownMenuDisplayed() => HeaderDropDown.IsDropDownMenuDisplayed();
 
-    public bool IsDropDownMenuDisplayed() => _dropDownMenu.IsDisplayed();
-
-    public bool IsUsersLinkDisplayed() => _usersLinkInDropDownMenu.IsDisplayed();
+    public bool IsUsersLinkDisplayed() => _userManagementDropDown.IsOptionDisplayedInDropDown(UsersLinkName);
 
     public AdminHeaderPage ClickUserManagementDropDownMenu()
     {
-        _userManagementDropDownButton.Click();
+        _userManagementDropDown.OpenDropDownMenu();
 
         return this;
     }
 
-    public UsersPage ClickUsersLink()
+    public UsersPage OpenUsersPage()
     {
-        _usersLinkInDropDownMenu.Click();
+        _userManagementDropDown.SelectValue(UsersLinkName);
 
         return new UsersPage();
     }
 
     public AdminHeaderPage ClickJobDropDownMenu()
     {
-        _jobDropDownButton.Click();
+        _jobDropDown.OpenDropDownMenu();
 
         return this;
     }
 
     public JobTitlesPage ClickJobTitlesInDropDownMenu()
     {
-        _jobTitlesLinkInDropDown.Click();
+        _jobDropDown.SelectOptionInOpenedMenu(JobTitlesOptionInDropDown);
+
+        return new JobTitlesPage();
+    }
+
+    public JobTitlesPage OpenJobTitlesPage()
+    {
+        _jobDropDown.SelectValue(JobTitlesOptionInDropDown);
 
         return new JobTitlesPage();
     }
 
     public NationalitiesPage ClickNationalitiesButton()
     {
-        _nationalitiesButton.Click();
+        ClickLinkByName(NationalitiesLinkName);
 
         return new NationalitiesPage();
-    }
-
-    public AdminHeaderPage WaitDropDownMenuVisibility()
-    {
-        _dropDownMenu.WaitForVisibility();
-
-        return this;
     }
 }

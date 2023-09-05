@@ -1,23 +1,21 @@
-using DiplomaProject.UI.Framework.Element;
-
 namespace DiplomaProject.UI.Pages.Recruitment;
 
 public class RecruitmentHeaderPage : BasePage
 {
-    private readonly Element _vacanciesButton = Element.ByXPath(LinkByTextPattern, "Vacancies");
-    
-    private readonly Element _candidatesButton = Element.ByXPath(LinkByTextPattern, "Candidates");
+    private const string VacanciesLink = "Vacancies";
+
+    private const string CandidatesLink = "Candidates";
 
     public VacanciesPage ClickVacanciesButton()
     {
-        _vacanciesButton.Click();
+        ClickLinkByName(VacanciesLink);
 
         return new VacanciesPage();
     }
 
     public CandidatesPage ClickCandidatesButton()
     {
-        _candidatesButton.Click();
+        ClickLinkByName(CandidatesLink);
 
         return new CandidatesPage();
     }

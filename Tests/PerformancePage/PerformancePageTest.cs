@@ -19,28 +19,24 @@ public class PerformancePageTest : BaseTest
     {
         var kpiPage = new SidePanelPage()
             .ClickPerformanceButton()
-            .ClickConfigureMenu()
-            .WaitDropDownVisibility()
-            .ClickKpiLink();
+            .OpenKpiPage();
         Assert.IsTrue(kpiPage.IsKpiJobTitleDisplayed(), "KPI page isn't displayed");
         var addKpiPage = kpiPage
             .ClickAddButton();
         Assert.IsTrue(addKpiPage.IsAddKpiTitleDisplayed(), "'Add Key Performance Indicator' page isn't displayed");
         kpiPage = addKpiPage
             .TypeKpi(Kpi)
-            .ClickJobTitleDropDownArrow()
-            .WaitJobTitleDropDownVisibility()
-            .ClickJobTitleDropDownOptionByName(JobTitle)
+            .SelectJobTitle(JobTitle)
             .ClickSaveButton()
             .WaitKpiListVisibility();
-        Assert.IsTrue(kpiPage.GetKpiNamesFromKpiList()
-            .Any(item => item.Equals(Kpi)), "The new performance indicator isn't listed in the KPI list");
+        CollectionAssert.Contains(kpiPage.GetKpiNamesFromKpiList(), Kpi,
+            "The new performance indicator isn't listed in the KPI list");
         kpiPage.ClickKpiCheckboxByKpiName(Kpi);
         Assert.IsTrue(kpiPage.IsCheckboxCheckedByKpiName(Kpi), "The checkbox isn't checked");
         var confirmationPopUp = kpiPage.ClickDeleteSelectedButton();
         Assert.IsTrue(confirmationPopUp.IsConfirmationPopUpDisplayed(), "Confirmation pop-up isn't displayed");
         confirmationPopUp.ClickYesButton();
-        Assert.IsFalse(new KpiPage().GetKpiNamesFromKpiList()
-            .Any(item => item.Equals(Kpi)), "The indicator listed in the KPI list");
+        CollectionAssert.DoesNotContain(new KpiPage().GetKpiNamesFromKpiList(), Kpi,
+            "The indicator listed in the KPI list");
     }
 }

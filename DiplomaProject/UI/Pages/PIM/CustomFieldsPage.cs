@@ -4,13 +4,13 @@ namespace DiplomaProject.UI.Pages.PIM;
 
 public class CustomFieldsPage : BasePage
 {
-    private const string TrashBinButtonByCustomFieldNamePattern =
-        "//div[text()='{0}']/parent::div//following-sibling::div//i[contains(@class,'bi-trash')]";
+    private const string CustomFieldsTitle = "Custom Fields";
 
-    private readonly Element _customFieldsTitle = Element.ByXPath(HeaderByTextPattern, "Custom Fields");
-    private readonly Element _addButton = Element.ByXPath("//button[contains(@class,'oxd-button ')]");
+    private readonly Element _addButton = Element.ByXPath("//*[contains(@class,'oxd-button--medium')]");
 
-    public bool IsCustomFieldsTitleDisplayed() => _customFieldsTitle.IsDisplayed();
+    private readonly Table _customFields = new();
+
+    public bool IsCustomFieldsTitleDisplayed() => IsHeaderDisplayed(CustomFieldsTitle);
 
     public AddCustomFieldPage ClickAddButton()
     {
@@ -21,7 +21,7 @@ public class CustomFieldsPage : BasePage
 
     public ConfirmationPopUp ClickTrashBinButtonBuCustomFieldName(string fieldName)
     {
-        Element.ByXPath(TrashBinButtonByCustomFieldNamePattern, fieldName).Click();
+        _customFields.ClickTrashBinButtonByColumnValue(fieldName);
 
         return new ConfirmationPopUp();
     }

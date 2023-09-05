@@ -34,8 +34,7 @@ public class LoginTest : BaseTest
         new LoginService()
             .LoginAsAdmin();
         var userHeaderPage = new UserHeaderPage()
-            .ClickUserDropDownIcon()
-            .WaitDropDownMenuVisibility();
+            .ClickUserDropDownIcon();
         Assert.IsTrue(userHeaderPage.IsDropDownMenuDisplayed(), "Dropdown options aren't displayed");
         var loginPage = userHeaderPage
             .ClickLogoutButton();

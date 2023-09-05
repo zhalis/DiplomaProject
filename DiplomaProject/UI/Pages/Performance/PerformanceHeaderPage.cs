@@ -1,30 +1,15 @@
-using DiplomaProject.UI.Framework.Element;
+using DiplomaProject.UI.Framework.Element.DropDowns;
 
 namespace DiplomaProject.UI.Pages.Performance;
 
 public class PerformanceHeaderPage : BasePage
 {
-    private readonly Element _configureDropDownMenu = Element.ByXPath(SpanByTextPattern, "Configure ");
-    private readonly Element _dropDownMenu = Element.ByXPath("//ul[contains(@class,'oxd-dropdown-menu')]");
-    private readonly Element _kpiLinkInDropDownMenu = Element.ByXPath(LinkByTextPattern, "KPIs");
+    private const string KpiLink = "KPIs";
+    private readonly DropDown _configureDropDownMenu = HeaderDropDown.ByLabel("Configure ");
 
-    public PerformanceHeaderPage ClickConfigureMenu()
+    public KpiPage OpenKpiPage()
     {
-        _configureDropDownMenu.Click();
-
-        return this;
-    }
-
-    public PerformanceHeaderPage WaitDropDownVisibility()
-    {
-        _dropDownMenu.WaitForVisibility();
-
-        return this;
-    }
-
-    public KpiPage ClickKpiLink()
-    {
-        _kpiLinkInDropDownMenu.Click();
+        _configureDropDownMenu.SelectValue(KpiLink);
 
         return new KpiPage();
     }

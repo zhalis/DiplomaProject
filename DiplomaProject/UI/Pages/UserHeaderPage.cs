@@ -1,15 +1,15 @@
 using DiplomaProject.UI.Framework.Element;
+using DiplomaProject.UI.Framework.Element.DropDowns;
 using DiplomaProject.UI.Pages.Login;
 
 namespace DiplomaProject.UI.Pages;
 
 public class UserHeaderPage : BasePage
 {
-    private readonly Element _userDropDownIcon = Element.ByXPath("//i[contains(@class,'oxd-userdropdown-icon')]");
-    private readonly Element _dropDownMenu = Element.ByXPath("//ul[@class='oxd-dropdown-menu']");
-    private readonly Element _logoutButton = Element.ByXPath(LinkByTextPattern, "Logout");
+    private const string Logout = "Logout";
+    private readonly Element _userDropDownIcon = Element.ByXPath("//*[contains(@class,'oxd-userdropdown-icon')]");
 
-    public bool IsDropDownMenuDisplayed() => _dropDownMenu.IsDisplayed();
+    public bool IsDropDownMenuDisplayed() => HeaderDropDown.IsDropDownMenuDisplayed();
 
     public UserHeaderPage ClickUserDropDownIcon()
     {
@@ -20,15 +20,8 @@ public class UserHeaderPage : BasePage
 
     public LoginPage ClickLogoutButton()
     {
-        _logoutButton.Click();
+        ClickLinkByName(Logout);
 
         return new LoginPage();
-    }
-
-    public UserHeaderPage WaitDropDownMenuVisibility()
-    {
-        _dropDownMenu.WaitForVisibility();
-
-        return this;
     }
 }

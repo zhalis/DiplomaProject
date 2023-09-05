@@ -10,12 +10,11 @@ public class AddUserService
         string status, string username, string password)
     {
         _addUserPage.WaitLoadingSpinnerInvisibility();
-        return _addUserPage.ClickUserRoleDropDownArrow()
-            .ClickSelectOptionByName(userRole)
-            .ClickStatusDropDownArrow()
-            .ClickSelectOptionByName(status)
-            .EnterEmployeeName(employeeName)
-            .ClickAutocompleteOptionByName(employeeName)
+        
+        return _addUserPage
+            .SelectUserRole(userRole)
+            .SelectStatus(status)
+            .SelectEmployeeName(employeeName)
             .EnterUsername(username)
             .EnterPassword(password)
             .EnterConfirmPassword(password)

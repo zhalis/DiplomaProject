@@ -1,41 +1,34 @@
-using DiplomaProject.UI.Framework.Element;
+using DiplomaProject.UI.Framework.Element.DropDowns;
 
 namespace DiplomaProject.UI.Pages.PIM;
 
 public class PimHeaderPage : BasePage
 {
-    private readonly Element _pimHeader = Element.ByXPath(HeaderByTextPattern, "PIM");
-    private readonly Element _addEmployeeButton = Element.ByXPath(LinkByTextPattern, "Add Employee");
-    private readonly Element _employeeListButton = Element.ByXPath(LinkByTextPattern, "Employee List");
-    private readonly Element _configurationMenu = Element.ByXPath(SpanByTextPattern, "Configuration ");
-    private readonly Element _customFieldsLink = Element.ByXPath(LinkByTextPattern, "Custom Fields");
-    
-    public bool IsPimHeaderDisplayed() => _pimHeader.IsDisplayed();
-    
+    private const string PimHeader = "PIM";
+    private const string AddEmployeeLink = "Add Employee";
+    private const string EmployeeListLink = "Employee List";
+    private const string CustomFieldsLink = "Custom Fields";
+    private readonly DropDown _configurationDropDown = HeaderDropDown.ByLabel("Configuration ");
+
+    public bool IsPimHeaderDisplayed() => IsHeaderDisplayed(PimHeader);
+
     public AddEmployeePage ClickAddEmployeeButton()
     {
-        _addEmployeeButton.Click();
+        ClickLinkByName(AddEmployeeLink);
 
         return new AddEmployeePage();
     }
-    
+
     public EmployeeListPage ClickEmployeeListButton()
     {
-        _employeeListButton.Click();
+        ClickLinkByName(EmployeeListLink);
 
         return new EmployeeListPage();
     }
 
-    public PimHeaderPage ClickConfigurationMenu()
+    public CustomFieldsPage OpenCustomFieldsPage()
     {
-        _configurationMenu.Click();
-
-        return this;
-    }
-
-    public CustomFieldsPage ClickCustomFieldsLink()
-    {
-        _customFieldsLink.Click();
+        _configurationDropDown.SelectValue(CustomFieldsLink);
 
         return new CustomFieldsPage();
     }

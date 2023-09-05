@@ -5,30 +5,26 @@ namespace DiplomaProject.UI.Pages.PIM;
 
 public class AddEmployeePage : BasePage
 {
-    private readonly Element _addEmployeeTitle = Element.ByXPath(HeaderByTextPattern, "Add Employee");
+    private const string AddEmployeeTitle = "Add Employee";
 
     private readonly Element _firstNameInput = Element.ByXPath(InputByPlaceholderPattern, "First Name");
 
     private readonly Element _lastNameInput = Element.ByXPath(InputByPlaceholderPattern, "Last Name");
 
-    private readonly Element _employeeIdInput = Element.ByXPath(
-        "//label[text()='Employee Id']/parent::div[contains(@class,'label-wrapper')]" +
-        "//following-sibling::div//input[contains(@class,'oxd-input')]");
+    private readonly Element _employeeIdInput = Element.ByXPath(InputByLabelNamePattern, "Employee Id");
 
-    private readonly Element _saveButton = Element.ByXPath(ButtonTypeSubmit);
-
-    public bool IsAddEmployeeTitleDisplayed() => _addEmployeeTitle.IsDisplayed();
+    public bool IsAddEmployeeTitleDisplayed() => IsHeaderDisplayed(AddEmployeeTitle);
 
     public AddEmployeePage EnterFirstName(string firstName)
     {
-        _firstNameInput.Type(firstName);
+        _firstNameInput.SendKeys(firstName);
 
         return this;
     }
 
     public AddEmployeePage EnterLastName(string lastName)
     {
-        _lastNameInput.Type(lastName);
+        _lastNameInput.SendKeys(lastName);
 
         return this;
     }
@@ -41,7 +37,7 @@ public class AddEmployeePage : BasePage
 
     public PersonalDetailsPage ClickSaveButton()
     {
-        _saveButton.Click();
+        ButtonTypeSubmit.Click();
 
         return new PersonalDetailsPage();
     }
