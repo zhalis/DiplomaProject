@@ -3,7 +3,6 @@ namespace DiplomaProject.UI.Framework.Element.DropDowns;
 public class AutocompleteDropDown : DropDown
 {
     private const string InputByLabelPattern = "//*[.//text()='{0}'][contains(@class,'oxd-input-group')]//input";
-
     private const string AutocompleteDropDownOptionPattern =
         "//*[contains(@class,'oxd-autocomplete-dropdown')]//*[contains(text(),'{0}')]";
 

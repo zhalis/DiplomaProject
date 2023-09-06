@@ -3,7 +3,6 @@ namespace DiplomaProject.UI.Pages.Recruitment;
 public class RecruitmentHeaderPage : BasePage
 {
     private const string VacanciesLink = "Vacancies";
-
     private const string CandidatesLink = "Candidates";
 
     public VacanciesPage ClickVacanciesButton()

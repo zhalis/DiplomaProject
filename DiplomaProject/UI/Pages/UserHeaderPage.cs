@@ -11,12 +11,7 @@ public class UserHeaderPage : BasePage
 
     public bool IsDropDownMenuDisplayed() => HeaderDropDown.IsDropDownMenuDisplayed();
 
-    public UserHeaderPage ClickUserDropDownIcon()
-    {
-        _userDropDownIcon.Click();
-
-        return this;
-    }
+    public UserHeaderPage ClickUserDropDownIcon() => ExecuteInChain<UserHeaderPage>(_userDropDownIcon.Click);
 
     public LoginPage ClickLogoutButton()
     {

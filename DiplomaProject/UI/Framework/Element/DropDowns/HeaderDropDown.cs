@@ -3,7 +3,6 @@ namespace DiplomaProject.UI.Framework.Element.DropDowns;
 public class HeaderDropDown : DropDown
 {
     private const string SpanByTextPattern = "//span[text()='{0}']";
-
     private const string LinkByTextPattern = "//a[text()='{0}']";
 
     private HeaderDropDown(string dropDownLabel) : base(dropDownLabel)

@@ -6,40 +6,22 @@ namespace DiplomaProject.UI.Pages.Admin;
 public class UsersPage : BasePage
 {
     private const string UsernameColumnName = "Username";
-
     private readonly Element _userList = Element.ByXPath("//*[@class='orangehrm-container']");
-
     private readonly Element _oneRecordFoundTitle = Element.ByXPath(SpanByTextPattern, "(1) Record Found");
-
     private readonly Element _usernameInput = Element.ByXPath(InputByLabelNamePattern, "Username");
-
     private readonly Element _addButton =
         Element.ByXPath("//*[@type='button' and contains(@class,'oxd-button--secondary')]");
-
     private readonly Table _users = new();
 
-    public UsersPage EnterUsername(string username)
-    {
-        _usernameInput.SendKeys(username);
-
-        return this;
-    }
+    public UsersPage EnterUsername(string username) =>
+        ExecuteInChain<UsersPage>(() => _usernameInput.SendKeys(username));
 
     public string GetUsernameInputValue() => _usernameInput.GetAttributeValue(Attributes.ValueCssProperty);
 
-    public UsersPage ClickSearchButton()
-    {
-        ButtonTypeSubmit.Click();
+    public UsersPage ClickSearchButton() => ExecuteInChain<UsersPage>(ButtonTypeSubmit.Click);
 
-        return this;
-    }
-
-    public UsersPage WaitSearchResultByUsername()
-    {
-        _oneRecordFoundTitle.WaitForVisibility();
-
-        return this;
-    }
+    public UsersPage WaitSearchResultByUsername() =>
+        ExecuteInChain<UsersPage>(() => _oneRecordFoundTitle.WaitForVisibility());
 
     public bool IsUserListDisplayed() => _userList.IsDisplayed();
 

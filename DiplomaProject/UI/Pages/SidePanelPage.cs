@@ -70,10 +70,6 @@ public class SidePanelPage : BasePage
         return new RecruitmentHeaderPage();
     }
 
-    public SidePanelPage EnterSearchValue(string searchValue)
-    {
-        _searchInput.SendKeys(searchValue);
-
-        return this;
-    }
+    public SidePanelPage EnterSearchValue(string searchValue) =>
+        ExecuteInChain<SidePanelPage>(() => _searchInput.SendKeys(searchValue));
 }

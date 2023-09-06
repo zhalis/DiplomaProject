@@ -5,9 +5,7 @@ namespace DiplomaProject.UI.Pages.Admin;
 public class JobTitlesPage : BasePage
 {
     private const string JobTitles = "Job Titles";
-
     private readonly Element _addButton = Element.ByXPath("//*[contains(@class,'oxd-button--medium')]");
-
     private readonly Table _jobTitles = new();
 
     public bool IsCheckboxSelectedByJobTitleName(string jobTitle) =>
@@ -32,12 +30,7 @@ public class JobTitlesPage : BasePage
         return new ConfirmationPopUp();
     }
 
-    public JobTitlesPage ClickCheckboxByJobTitleName(string jobTitle)
-    {
-       _jobTitles.ClickCheckboxByColumnValue(jobTitle);
-
-        return this;
-    }
+    public void ClickCheckboxByJobTitleName(string jobTitle) => _jobTitles.ClickCheckboxByColumnValue(jobTitle);
 
     public ConfirmationPopUp ClickDeleteSelectedButton()
     {

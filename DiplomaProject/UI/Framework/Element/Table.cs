@@ -3,23 +3,15 @@ namespace DiplomaProject.UI.Framework.Element;
 public class Table
 {
     private const string ColumnValueByIndexPattern = "//*[contains(@class,'oxd-table-cell')][{0}]/div";
-
     private const string TableCellByValuePattern = "//*[contains(@class,'oxd-table-row')][.//text()='{0}']";
-
     private const string TrashBinButtonPattern = $"{TableCellByValuePattern}//*[contains(@class,'bi-trash')]";
-
     private const string EditButtonPattern = $"{TableCellByValuePattern}//*[contains(@class,'bi-pencil-fill')]";
-
     private const string CheckboxInputByColumnValuePattern = $"{TableCellByValuePattern}//*[@type='checkbox']";
-
     private const string CheckboxByColumnValuePattern = 
         $"{TableCellByValuePattern}//span[contains(@class,'oxd-checkbox-input')]";
-
     private readonly Element _columnHeader = Element.ByXPath("//*[contains(@class,'oxd-table-header-cell')]");
-
     private readonly Element _deleteSelectedButton = Element.ByXPath(
         "//*[contains(@class,'oxd-button')]//*[contains(@class,'bi-trash-fill')]");
-
     private readonly Dictionary<string, int> _columnNamesByIndex;
 
     public Table()

@@ -6,39 +6,23 @@ public class DashboardPage : BasePage
 {
     private const string DashboardElementsTitlePattern = "//*[text()='{0}']";
 
-    private const string DashboardHeader = "Dashboard";
+    public bool IsDashboardHeaderDisplayed() => IsHeaderDisplayed("Dashboard");
 
-    private const string TimeAtWorkTitle = "Time at Work";
+    public bool IsTimeAtWorkTitleDisplayed() => GetTitleElement("Time at Work").IsDisplayed();
 
-    private const string MyActionsTitle = "My Actions";
+    public bool IsMyActionsTitleDisplayed() => GetTitleElement("My Actions").IsDisplayed();
 
-    private const string QuickLaunchTitle = "Quick Launch";
+    public bool IsQuickLaunchTitleDisplayed() => GetTitleElement("Quick Launch").IsDisplayed();
 
-    private const string BuzzLatestPostsTitle = "Buzz Latest Posts";
+    public bool IsBuzzLatestPostsTitleDisplayed() => GetTitleElement("Buzz Latest Posts").IsDisplayed();
 
-    private const string EmployeesOnLeaveTodayTitle = "Employees on Leave Today";
-
-    private const string EmployeeDistributionBySubUnitTitle = "Employee Distribution by Sub Unit";
-
-    private const string EmployeeDistributionByLocationTitle = "Employee Distribution by Location";
-
-    public bool IsDashboardHeaderDisplayed() => IsHeaderDisplayed(DashboardHeader);
-
-    public bool IsTimeAtWorkTitleDisplayed() => GetTitleElement(TimeAtWorkTitle).IsDisplayed();
-
-    public bool IsMyActionsTitleDisplayed() => GetTitleElement(MyActionsTitle).IsDisplayed();
-
-    public bool IsQuickLaunchTitleDisplayed() => GetTitleElement(QuickLaunchTitle).IsDisplayed();
-
-    public bool IsBuzzLatestPostsTitleDisplayed() => GetTitleElement(BuzzLatestPostsTitle).IsDisplayed();
-
-    public bool IsEmployeesOnLeaveTodayTitleDisplayed() => GetTitleElement(EmployeesOnLeaveTodayTitle).IsDisplayed();
+    public bool IsEmployeesOnLeaveTodayTitleDisplayed() => GetTitleElement("Employees on Leave Today").IsDisplayed();
 
     public bool IsEmployeeDistributionBySubUnitTitleDisplayed() =>
-        GetTitleElement(EmployeeDistributionBySubUnitTitle).IsDisplayed();
+        GetTitleElement("Employee Distribution by Sub Unit").IsDisplayed();
 
     public bool IsEmployeeDistributionByLocationTitleDisplayed() =>
-        GetTitleElement(EmployeeDistributionByLocationTitle).IsDisplayed();
+        GetTitleElement("Employee Distribution by Location").IsDisplayed();
 
     private Element GetTitleElement(string title) => Element.ByXPath(DashboardElementsTitlePattern, title);
 }

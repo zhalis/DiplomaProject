@@ -6,17 +6,11 @@ namespace DiplomaProject.UI.Pages.PIM;
 public class EmployeeListPage : BasePage
 {
     private const string FirstNameColumnName = "First (& Middle) Name";
-
     private readonly Element _employeeInformationTitle = Element.ByXPath("//*[text()='Employee Information']");
-
     private readonly Element _employeeNameInput = Element.ByXPath(InputByLabelNamePattern, "Employee Name");
-
     private readonly Element _employeeIdInput = Element.ByXPath(InputByLabelNamePattern, "Employee Id");
-
     private readonly Element _notFoundSearchResultMessage = Element.ByXPath(SpanByTextPattern, "No Records Found");
-
     private readonly Element _oneRecordFoundTitle = Element.ByXPath(SpanByTextPattern, "(1) Record Found");
-
     private readonly Table _employees = new();
 
     public bool IsEmployeeInformationTitleDisplayed() => _employeeInformationTitle.IsDisplayed();
@@ -27,12 +21,8 @@ public class EmployeeListPage : BasePage
 
     public bool IsEmployeeByIdDisplayed(string employeeId) => _employees.IsColumnValueDisplayed(employeeId);
 
-    public EmployeeListPage EnterEmployeeName(string employeeName)
-    {
-        _employeeNameInput.SendKeys(employeeName);
-
-        return this;
-    }
+    public EmployeeListPage EnterEmployeeName(string employeeName) =>
+        ExecuteInChain<EmployeeListPage>(() => _employeeNameInput.SendKeys(employeeName));
 
     public EmployeeListPage ClearEmployeeNameInput()
     {
@@ -41,27 +31,16 @@ public class EmployeeListPage : BasePage
         return new EmployeeListPage();
     }
 
-    public EmployeeListPage EnterEmployeeId(string employeeId)
+    public EmployeeListPage EnterEmployeeId(string employeeId) => ExecuteInChain<EmployeeListPage>(() =>
     {
         _employeeIdInput.Click();
         _employeeIdInput.SendKeys(employeeId);
+    });
 
-        return this;
-    }
+    public EmployeeListPage ClickSearchButton() => ExecuteInChain<EmployeeListPage>(() => ButtonTypeSubmit.Click());
 
-    public EmployeeListPage ClickSearchButton()
-    {
-        ButtonTypeSubmit.Click();
-
-        return this;
-    }
-
-    public EmployeeListPage WaitSearchResult()
-    {
-        _oneRecordFoundTitle.WaitForVisibility();
-
-        return this;
-    }
+    public EmployeeListPage WaitSearchResult() =>
+        ExecuteInChain<EmployeeListPage>(() => _oneRecordFoundTitle.WaitForVisibility());
 
     public ConfirmationPopUp ClickTrashBinButtonByEmployeeId(string employeeId)
     {
@@ -80,12 +59,8 @@ public class EmployeeListPage : BasePage
         return new PersonalDetailsPage();
     }
 
-    public EmployeeListPage ClickCheckboxByEmployeeId(string employeeId)
-    {
-        _employees.ClickCheckboxByColumnValue(employeeId);
-
-        return this;
-    }
+    public EmployeeListPage ClickCheckboxByEmployeeId(string employeeId) =>
+        ExecuteInChain<EmployeeListPage>(() => _employees.ClickCheckboxByColumnValue(employeeId));
 
     public ConfirmationPopUp ClickDeleteSelectedButton()
     {

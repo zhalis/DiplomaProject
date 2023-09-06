@@ -5,15 +5,10 @@ namespace DiplomaProject.UI.Pages.Admin;
 public class AdminHeaderPage : BasePage
 {
     private const string AdminTitle = "Admin";
-
     private const string NationalitiesLinkName = "Nationalities";
-
     private const string UsersLinkName = "Users";
-
     private const string JobTitlesOptionInDropDown = "Job Titles";
-
     private readonly HeaderDropDown _userManagementDropDown = HeaderDropDown.ByLabel("User Management ");
-
     private readonly HeaderDropDown _jobDropDown = HeaderDropDown.ByLabel("Job ");
 
     public bool IsAdminTitleDisplayed() => IsHeaderDisplayed(AdminTitle);
@@ -24,12 +19,7 @@ public class AdminHeaderPage : BasePage
 
     public bool IsUsersLinkDisplayed() => _userManagementDropDown.IsOptionDisplayedInDropDown(UsersLinkName);
 
-    public AdminHeaderPage ClickUserManagementDropDownMenu()
-    {
-        _userManagementDropDown.OpenDropDownMenu();
-
-        return this;
-    }
+    public void ClickUserManagementDropDownMenu() => _userManagementDropDown.OpenDropDownMenu();
 
     public UsersPage OpenUsersPage()
     {
@@ -38,12 +28,8 @@ public class AdminHeaderPage : BasePage
         return new UsersPage();
     }
 
-    public AdminHeaderPage ClickJobDropDownMenu()
-    {
-        _jobDropDown.OpenDropDownMenu();
-
-        return this;
-    }
+    public AdminHeaderPage ClickJobDropDownMenu() =>
+        ExecuteInChain<AdminHeaderPage>(() => _jobDropDown.OpenDropDownMenu());
 
     public JobTitlesPage ClickJobTitlesInDropDownMenu()
     {

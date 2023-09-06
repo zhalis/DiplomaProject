@@ -12,47 +12,23 @@ public class AddUserPage : BasePage
     private readonly Element _passwordInput = Element.ByXPath(InputByLabelNamePattern, "Password");
     private readonly Element _confirmPasswordInput = Element.ByXPath(InputByLabelNamePattern, "Confirm Password");
 
-    public AddUserPage SelectEmployeeName(string employeeName)
-    {
-        _employeeNameDropDown.SelectValue(employeeName);
+    public AddUserPage SelectEmployeeName(string employeeName) =>
+        ExecuteInChain<AddUserPage>(() => _employeeNameDropDown.SelectValue(employeeName));
 
-        return this;
-    }
+    public AddUserPage EnterUsername(string username) =>
+        ExecuteInChain<AddUserPage>(() => _usernameInput.SendKeys(username));
 
-    public AddUserPage EnterUsername(string username)
-    {
-        _usernameInput.SendKeys(username);
+    public AddUserPage EnterPassword(string password) =>
+        ExecuteInChain<AddUserPage>(() => _passwordInput.SendKeys(password));
 
-        return this;
-    }
+    public AddUserPage EnterConfirmPassword(string password) =>
+        ExecuteInChain<AddUserPage>(() => _confirmPasswordInput.SendKeys(password));
 
-    public AddUserPage EnterPassword(string password)
-    {
-        _passwordInput.SendKeys(password);
+    public AddUserPage SelectUserRole(string userRole) =>
+        ExecuteInChain<AddUserPage>(() => _userRoleDropDown.SelectValue(userRole));
 
-        return this;
-    }
-
-    public AddUserPage EnterConfirmPassword(string password)
-    {
-        _confirmPasswordInput.SendKeys(password);
-
-        return this;
-    }
-
-    public AddUserPage SelectUserRole(string userRole)
-    {
-        _userRoleDropDown.SelectValue(userRole);
-
-        return this;
-    }
-
-    public AddUserPage SelectStatus(string status)
-    {
-        _statusDropDown.SelectValue(status);
-
-        return this;
-    }
+    public AddUserPage SelectStatus(string status) =>
+        ExecuteInChain<AddUserPage>(() => _statusDropDown.SelectValue(status));
 
     public UsersPage ClickSaveButton()
     {

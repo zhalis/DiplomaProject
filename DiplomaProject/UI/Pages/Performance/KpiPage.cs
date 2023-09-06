@@ -5,15 +5,11 @@ namespace DiplomaProject.UI.Pages.Performance;
 public class KpiPage : BasePage
 {
     private const string KpiColumnName = "Key Performance Indicator";
-
     private readonly Element _kpiForJobTitle =
         Element.ByXPath("//h5[text()='Key Performance Indicators for Job Title']");
-
     private readonly Element _addButton =
         Element.ByXPath("//button[contains(@class,'oxd-button--secondary')]/i[contains(@class,'oxd-icon')]");
-
     private readonly Element _kpiList = Element.ByXPath("//div[@class='orangehrm-container']");
-
     private readonly Table _kpis = new();
 
     public bool IsKpiJobTitleDisplayed() => _kpiForJobTitle.IsDisplayed();
@@ -32,12 +28,7 @@ public class KpiPage : BasePage
         return new ConfirmationPopUp();
     }
 
-    public KpiPage ClickKpiCheckboxByKpiName(string kpiName)
-    {
-        _kpis.ClickCheckboxByColumnValue(kpiName);
-
-        return this;
-    }
+    public void ClickKpiCheckboxByKpiName(string kpiName) => _kpis.ClickCheckboxByColumnValue(kpiName);
 
     public bool IsCheckboxCheckedByKpiName(string kpiName) =>
         _kpis.IsCheckboxCheckedByColumnValue(kpiName);
@@ -45,10 +36,5 @@ public class KpiPage : BasePage
     public List<string> GetKpiNamesFromKpiList() =>
         _kpis.GetElementsByColumn(KpiColumnName);
 
-    public KpiPage WaitKpiListVisibility()
-    {
-        _kpiList.WaitForVisibility();
-
-        return this;
-    }
+    public KpiPage WaitKpiListVisibility() => ExecuteInChain<KpiPage>(() => _kpiList.WaitForVisibility());
 }

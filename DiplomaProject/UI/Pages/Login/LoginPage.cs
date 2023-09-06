@@ -12,26 +12,13 @@ public class LoginPage : BasePage
 
     public bool IsLoginFormDisplayed() => _loginForm.IsDisplayed();
 
-    public LoginPage WaitLoginFormVisibility()
-    {
-        _loginForm.WaitForVisibility();
+    public LoginPage WaitLoginFormVisibility() => ExecuteInChain<LoginPage>(() => _loginForm.WaitForVisibility());
 
-        return this;
-    }
+    public LoginPage TypeUsername(string username) =>
+        ExecuteInChain<LoginPage>(() => _usernameInput.SendKeys(username));
 
-    public LoginPage TypeUsername(string username)
-    {
-        _usernameInput.SendKeys(username);
-
-        return this;
-    }
-
-    public LoginPage TypePassword(string password)
-    {
-        _passwordInput.SendKeys(password);
-
-        return this;
-    }
+    public LoginPage TypePassword(string password) =>
+        ExecuteInChain<LoginPage>(() => _passwordInput.SendKeys(password));
 
     public string GetUsernameInputValue() => _usernameInput.GetAttributeValue(Attributes.ValueCssProperty);
 

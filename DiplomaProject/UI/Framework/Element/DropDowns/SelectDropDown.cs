@@ -4,7 +4,6 @@ public class SelectDropDown : DropDown
 {
     private const string DropDownArrowPatternByLabel =
         "//*[text()='{0}']/parent::div//following-sibling::div//i[contains(@class,'bi-caret-down-fill')]";
-    
     private const string SelectDropDownOptionPatternBySelectOption =
         "//*[contains(@class,'oxd-select-dropdown')]//*[contains(text(),'{0}')]";
 

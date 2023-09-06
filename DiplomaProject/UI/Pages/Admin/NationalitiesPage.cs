@@ -5,9 +5,7 @@ namespace DiplomaProject.UI.Pages.Admin;
 public class NationalitiesPage : BasePage
 {
     private const string NationalitiesTitleHeader = "Nationalities";
-
     private const string NationalityColumnName = "Nationality";
-
     private readonly Table _nationalities = new();
 
     public bool IsNationalitiesTableTitleDisplayed() => IsHeaderDisplayed(NationalitiesTitleHeader);

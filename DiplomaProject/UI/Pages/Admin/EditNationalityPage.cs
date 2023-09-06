@@ -7,14 +7,13 @@ public class EditNationalityPage : BasePage
 {
     private readonly Element _nameInput = Element.ByXPath(InputByLabelNamePattern, "Name");
 
-    public EditNationalityPage EnterNationalityName(string nationalityName)
-    {
-        _nameInput.Click();
-        _nameInput.ClearInputUsingBackspace();
-        _nameInput.SendKeys(nationalityName);
-
-        return this;
-    }
+    public EditNationalityPage EnterNationalityName(string nationalityName) =>
+        ExecuteInChain<EditNationalityPage>(() =>
+        {
+            _nameInput.Click();
+            _nameInput.ClearInputUsingBackspace();
+            _nameInput.SendKeys(nationalityName);
+        });
 
     public string GetValueFromNameInput() => _nameInput.GetAttributeValue(Attributes.ValueCssProperty);
 
