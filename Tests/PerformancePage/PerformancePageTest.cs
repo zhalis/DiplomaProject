@@ -1,11 +1,13 @@
 using DiplomaProject.UI.Pages;
 using DiplomaProject.UI.Pages.Performance;
 using DiplomaProject.UI.Services;
+using NUnit.Allure.Core;
 using NUnit.Framework;
 
 namespace Tests.PerformancePage;
 
 [TestFixture]
+[AllureNUnit]
 public class PerformancePageTest : BaseTest
 {
     private const string Kpi = "AddedKpi";

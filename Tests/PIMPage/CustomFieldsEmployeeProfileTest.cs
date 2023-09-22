@@ -1,10 +1,12 @@
 using DiplomaProject.UI.Pages.PIM;
 using DiplomaProject.UI.Services;
+using NUnit.Allure.Core;
 using NUnit.Framework;
 
 namespace Tests.PIMPage;
 
 [TestFixture]
+[AllureNUnit]
 public class CustomFieldsEmployeeProfileTest : BaseTest
 {
     private const string FirstName = "Alexsey";

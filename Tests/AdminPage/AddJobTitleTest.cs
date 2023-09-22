@@ -1,11 +1,13 @@
 using DiplomaProject.UI.Pages;
 using DiplomaProject.UI.Pages.Admin;
 using DiplomaProject.UI.Services;
+using NUnit.Allure.Core;
 using NUnit.Framework;
 
 namespace Tests.AdminPage;
 
 [TestFixture]
+[AllureNUnit]
 public class AddJobTitleTest : BaseTest
 {
     private const string JobTitle = "Automation QA";

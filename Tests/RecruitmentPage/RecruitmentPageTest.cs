@@ -1,11 +1,13 @@
 using DiplomaProject.UI.Pages;
 using DiplomaProject.UI.Pages.Recruitment;
 using DiplomaProject.UI.Services;
+using NUnit.Allure.Core;
 using NUnit.Framework;
 
 namespace Tests.RecruitmentPage;
 
 [TestFixture]
+[AllureNUnit]
 public class RecruitmentPageTest : BaseTest
 {
     private const string VacancyName = "MyVacancyName";

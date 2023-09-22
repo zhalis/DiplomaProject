@@ -7,6 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="Allure.NUnit" Version="2.9.5-preview.1" />
       <PackageReference Include="DotNetSeleniumExtras.WaitHelpers" Version="3.11.0" />
       <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0-preview-23371-04" />
       <PackageReference Include="NUnit" Version="3.13.3" />

@@ -2,11 +2,13 @@ using DiplomaProject.UI.Framework;
 using DiplomaProject.UI.Pages;
 using DiplomaProject.UI.Pages.Login;
 using DiplomaProject.UI.Services;
+using NUnit.Allure.Core;
 using NUnit.Framework;
 
 namespace Tests.LoginLogout;
 
 [TestFixture]
+[AllureNUnit]
 public class LoginTest : BaseTest
 {
     [Test]

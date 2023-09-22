@@ -1,10 +1,12 @@
 using DiplomaProject.UI.Pages;
 using DiplomaProject.UI.Services;
+using NUnit.Allure.Core;
 using NUnit.Framework;
 
 namespace Tests.LeavePage;
 
 [TestFixture]
+[AllureNUnit]
 public class LeavePageTest : BaseTest
 {
     private const string FirstName = "Alexsey";

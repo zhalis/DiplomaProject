@@ -1,9 +1,12 @@
 using DiplomaProject.UI.Pages;
 using DiplomaProject.UI.Services;
+using NUnit.Allure.Core;
 using NUnit.Framework;
 
 namespace Tests.Dashboard;
 
+[TestFixture]
+[AllureNUnit]
 public class DashboardTest : BaseTest
 {
     [SetUp]

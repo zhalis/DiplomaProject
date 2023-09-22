@@ -1,10 +1,12 @@
 using DiplomaProject.UI.Pages;
 using DiplomaProject.UI.Services;
+using NUnit.Allure.Core;
 using NUnit.Framework;
 
 namespace Tests;
 
 [TestFixture]
+[AllureNUnit]
 public class SidePanelTest : BaseTest
 {
     private const string Keyword = "fo";
